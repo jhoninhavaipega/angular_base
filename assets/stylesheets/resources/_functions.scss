@@ -1,0 +1,43 @@
+@function em($target-px, $context) {
+  @return ($target-px / $context) * 1em;
+}
+
+@function percent($target, $context) {
+  @return ($target / $context) * 100%;
+}
+
+$small-device: 480px;
+$medium-device: 680px;
+$large-device: 681px;
+$ipad: 768px;
+
+@mixin respond-to($media) {
+  @if $media == $small-device {
+    @media only screen and (max-width: $small-device) { @content; }
+  }
+  @else if $media == $medium-device {
+    @media only screen and (max-width: $medium-device) { @content; }
+  }
+  @else if $media == $large-device {
+    @media only screen and (min-width: $large-device) { @content; }
+  }
+  @else if $media == $ipad {
+    @media only screen and (min-width: $ipad) and (max-width: 1024px) and (orientation : portrait) { @content; }
+  }
+}
+
+@mixin rem($property, $value) {
+  $rem: ($value / 16);
+  #{$property}: #{$value}px;
+  #{$property}: #{$rem}rem;
+}
+
+@function px-to-rem($value) {
+  @return #{($value / 16)}rem;
+}
+
+@mixin font-size($target) {
+  $rem: ($target / 16);
+  font-size: #{$target}px;
+  font-size: #{$rem}rem;
+}
